@@ -8,7 +8,7 @@
 >HOST: 239.255.255.250:1900<br/>
 >MAN: "ssdp:discover"<br/>
 >MX: 5<br/>
->ST: ssdp:all</br>
+>ST: ssdp:all<br/>
 -  HOST 是SSDP默认的广播ip与端口，MAN 默认值为"ssdp:discover",ST:设备的状态。
 设备回应查询的格式<br/>
 >HTTP/1.1 200 OK<br/>
@@ -19,6 +19,7 @@
 >SERVER: OS/Version UPNP/1.0 product/version<br/>
 >ST: search target<br/>
 >USN: advertisement UUID<br/>
+
 ### TCP(传输控制协议)
 - 在不可靠的互联网络上提供可靠的端到端字节流而专门设计的一个传输协议。
 - TCP为了保证报文传输的可靠，就给每个包一个序号，同时序号也保证了传送到接收端实体的包的按序接收。然后接收端实体对已成功收到的字节发回一个相应的确认（ACK）；如果发送端实体在合理的往返时延（RTT）内未收到确认，那么对应的数据（假设丢失了）将会被重传。
@@ -38,6 +39,7 @@
 >- 接收到这个FIN的对端执行 “被动关闭”（passive close），这个FIN由TCP确认
 >- 一段时间后，接收到这个文件结束符的应用进程将调用close关闭它的套接字。这导致它的TCP也发送一个FIN
 >- 接收这个最终FIN的原发送端TCP（即执行主动关闭的那一端）确认这个FIN.<br/>
+
 ### TLS(安全传输层协议)
 - 用于在两个通信应用程序之间提供保密性和数据完整性
 - 该协议由两层组成： TLS 记录协议（TLS Record）和 TLS 握手协议（TLS Handshake）
@@ -58,9 +60,7 @@
 - >ChangeCipherSpec 
 - >ChangeCipherSpec是一个独立的协议，体现在数据包中就是一个字节的数据，用于告知服务端，客户端已经切换到之前协商好的加密套件（Cipher Suite）的状态，准备使用之前协商好的加密套件加密数据并传输了
 - > 服务器的最后回应（Server Finish）
-- > 服务端在接收到客户端传过来的 PreMaster 加密数据之后，使用私钥对这段加密数据进行解密，并对数据进行验证，也会使用跟客户端同样的方式生成 Session Secret，一切准备好之后，会给客户端发送一个 ChangeCipherSpec，告知客户端已经切换到协商过的加密套件状态，准备使用加密套件和 Session Secret加密数据了。之后，服务端也会使用 Session Secret 加密一段 Finish 消息发送给客户端，以验证之前通过握手建立起来的加解密通道是否成功。
-根据之前的握手信息，如果客户端和服务端都能对Finish信息进行正常加解密且消息正确的被验证，则说明握手通道已经建立成功，接下来，双方可以使用上面产生的Session Secret对数据进行加密传输了。<br/>
-
+- > 服务端在接收到客户端传过来的 PreMaster 加密数据之后，使用私钥对这段加密数据进行解密，并对数据进行验证，也会使用跟客户端同样的方式生成 Session Secret，一切准备好之后，会给客户端发送一个 ChangeCipherSpec，告知客户端已经切换到协商过的加密套件状态，准备使用加密套件和 Session Secret加密数据了。之后，服务端也会使用 Session Secret 加密一段 Finish 消息发送给客户端，以验证之前通过握手建立起来的加解密通道是否成功。根据之前的握手信息，如果客户端和服务端都能对Finish信息进行正常加解密且消息正确的被验证，则说明握手通道已经建立成功，接下来，双方可以使用上面产生的Session Secret对数据进行加密传输了。<br/>
 ### 参考文献
 - [TLS原理](https://blog.csdn.net/alinyua/article/details/79476365)
 - [SSDP协议](https://blog.csdn.net/zhu530548851/article/details/28611657)
